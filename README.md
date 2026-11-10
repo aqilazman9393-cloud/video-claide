@@ -38,3 +38,12 @@ python3 scripts/v2/music_v2.py $S/music_v2.wav
 python3 scripts/v2/segments_v2.py <folder_video_asal> $S
 python3 scripts/v2/compose_v2.py <folder_video_asal> $S $S/kopi_saigon_v2.mp4
 ```
+
+---
+
+# Versi 3: sinematik premium (disyorkan)
+
+- `output/kopi_saigon_v3.mp4`: dengan skor piano dan bunyi suasana kafe
+- `output/kopi_saigon_v3_tanpa_muzik.mp4`: bunyi suasana sahaja, untuk tambah lagu sendiri di TikTok/IG/CapCut
+
+Footage distabilkan, pergerakan kamera licin dengan easing, gred filem dengan halation, transisi dissolve dan light leak, dua font (Playfair Display Italic dan Inter Light). Skrip dalam `scripts/v3/`.
