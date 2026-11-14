@@ -1,0 +1,33 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #dijual-wash { position: absolute; left: 0; top: 0; width: 1080px; height: 560px;
+      background: linear-gradient(180deg, rgba(18, 11, 6, 0.4) 0%, rgba(18, 11, 6, 0) 100%); }
+    #dijual-card { position: absolute; left: 96px; top: 176px; }
+    #dijual-pill { display: inline-flex; align-items: center; gap: 16px; padding: 14px 28px 14px 22px;
+      border: 1.5px solid rgba(244, 234, 219, 0.85); border-radius: 999px;
+      font-family: var(--sans); font-weight: 300; font-size: 32px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--cream); text-shadow: var(--shadow); background: rgba(20, 12, 6, 0.18); }
+    #dijual-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--cream); }
+    #dijual-title { margin-top: 22px; font-family: var(--serif); font-style: italic; font-size: 84px; color: var(--cream); text-shadow: var(--shadow); }
+  </style>
+  <div id="root" data-composition-id="dijual" data-width="1080" data-height="1920">
+    <div id="dijual-wash" class="clip" data-start="0" data-duration="2.8"></div>
+    <div id="dijual-card" class="clip" data-start="0" data-duration="2.8">
+      <div id="dijual-pill"><span id="dijual-dot"></span>Kini dijual</div>
+      <div id="dijual-title">di Kopi Saigon.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#dijual-wash", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    tl.fromTo("#dijual-pill", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+    tl.fromTo("#dijual-dot", { scale: 0 }, { scale: 1, duration: 0.5, ease: "power3.out" }, 0.35);
+    // denyut lembut pada titik (sekali sahaja, deterministik)
+    tl.to("#dijual-dot", { opacity: 0.35, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0.9);
+    tl.fromTo("#dijual-title", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+    tl.to(["#dijual-card", "#dijual-wash"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 2.35);
+    tl.set(["#dijual-card", "#dijual-wash"], { opacity: 0 }, 2.79);
+    window.__timelines["dijual"] = tl;
+  </script>
+</template>

@@ -1,0 +1,28 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #outro-card { position: absolute; left: 0; width: 1080px; top: 1010px; text-align: center; }
+    #outro-label { font-family: var(--sans); font-weight: 300; font-size: 36px; letter-spacing: 0.42em;
+      text-transform: uppercase; color: var(--cream); text-shadow: var(--shadow); padding-left: 0.42em; }
+    #outro-place { margin-top: 20px; font-family: var(--serif); font-style: italic; font-size: 76px; color: var(--cream); text-shadow: var(--shadow); }
+    #outro-rule { width: 96px; height: 2px; background: var(--cream); margin: 34px auto 30px; opacity: 0.85; }
+    #outro-cta { font-family: var(--serif); font-style: italic; font-size: 60px; color: var(--cream); text-shadow: var(--shadow); }
+  </style>
+  <div id="root" data-composition-id="outro" data-width="1080" data-height="1920">
+    <div id="outro-card" class="clip" data-start="0" data-duration="3.1">
+      <div id="outro-label">Kopi Saigon</div>
+      <div id="outro-place">Pasir Puteh · Kelantan</div>
+      <div id="outro-rule"></div>
+      <div id="outro-cta">Jom singgah.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#outro-label", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+    tl.fromTo("#outro-place", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.fromTo("#outro-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.out" }, 0.7);
+    tl.fromTo("#outro-cta", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.75);
+    tl.set({}, {}, 3.1);
+    window.__timelines["outro"] = tl;
+  </script>
+</template>

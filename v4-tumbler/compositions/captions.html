@@ -1,0 +1,47 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    #cap-scrim { position: absolute; left: 0; bottom: 0; width: 1080px; height: 760px;
+      background: linear-gradient(180deg, rgba(14, 9, 5, 0) 0%, rgba(14, 9, 5, 0.38) 45%, rgba(14, 9, 5, 0.62) 100%); }
+    .cap { position: absolute; left: 96px; width: 888px; bottom: 380px; overflow: visible;
+      font-family: var(--serif); font-style: italic; font-size: 72px; line-height: 1.12; color: var(--cream);
+      text-shadow: var(--shadow); opacity: 0; }
+    .cap .w { display: inline-block; position: relative; margin-right: 0.24em; opacity: 0; }
+    .cap .ul { position: absolute; left: 2px; right: 6px; bottom: -4px; height: 5px; border-radius: 3px; transform-origin: 0 50%; transform: scaleX(0); }
+    .cap .ul.blue { background: var(--blue); }
+    .cap .ul.pink { background: var(--pink); }
+    #cap-tick { position: absolute; left: 96px; bottom: 300px; font-family: var(--sans); font-weight: 300; font-size: 32px;
+      letter-spacing: 0.32em; text-transform: uppercase; color: var(--cream); opacity: 0.0; }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div id="cap-scrim" class="clip" data-start="0" data-duration="20.9"></div>
+    <div id="cap0" class="cap clip" data-start="0.20" data-duration="1.95"><span class="w" id="c0w0">Kita</span><span class="w" id="c0w1">ada</span><span class="w" id="c0w2">dua</span><span class="w" id="c0w3">warna</span></div>
+    <div id="cap1" class="cap clip" data-start="2.20" data-duration="1.85"><span class="w" id="c1w0">Ni</span><span class="w" id="c1w1">blue,<span class="ul blue"></span></span><span class="w" id="c1w2">ni</span><span class="w" id="c1w3">pink.<span class="ul pink"></span></span></div>
+    <div id="cap2" class="cap clip" data-start="4.10" data-duration="2.25"><span class="w" id="c2w0">Boleh</span><span class="w" id="c2w1">dah,</span><span class="w" id="c2w2">sebab</span><span class="w" id="c2w3">ni</span><span class="w" id="c2w4">tumbler</span><span class="w" id="c2w5">baru</span></div>
+    <div id="cap3" class="cap clip" data-start="6.40" data-duration="1.35"><span class="w" id="c3w0">Dia</span><span class="w" id="c3w1">ada</span><span class="w" id="c3w2">macam</span><span class="w" id="c3w3">strap</span></div>
+    <div id="cap4" class="cap clip" data-start="7.80" data-duration="2.05"><span class="w" id="c4w0">Macam</span><span class="w" id="c4w1">ni</span><span class="w" id="c4w2">kita</span><span class="w" id="c4w3">pakai</span></div>
+    <div id="cap5" class="cap clip" data-start="11.15" data-duration="2.10"><span class="w" id="c5w0">Kalau</span><span class="w" id="c5w1">kita</span><span class="w" id="c5w2">pergi</span><span class="w" id="c5w3">ke</span><span class="w" id="c5w4">mana-mana</span></div>
+    <div id="cap6" class="cap clip" data-start="13.30" data-duration="1.20"><span class="w" id="c6w0">Tumbler</span><span class="w" id="c6w1">jual</span><span class="w" id="c6w2">ke?</span></div>
+    <div id="cap7" class="cap clip" data-start="14.55" data-duration="0.70"><span class="w" id="c7w0">Ha,</span><span class="w" id="c7w1">jual.</span></div>
+    <div id="cap8" class="cap clip" data-start="15.30" data-duration="1.95"><span class="w" id="c8w0">Kita</span><span class="w" id="c8w1">ada</span><span class="w" id="c8w2">dua</span><span class="w" id="c8w3">warna</span></div>
+    <div id="cap9" class="cap clip" data-start="17.30" data-duration="3.55"><span class="w" id="c9w0">Satu</span><span class="w" id="c9w1">blue,<span class="ul blue"></span></span><span class="w" id="c9w2">satu</span><span class="w" id="c9w3">pink.<span class="ul pink"></span></span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#cap-scrim", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
+    tl.to("#cap-scrim", { opacity: 0, duration: 0.5, ease: "power2.in" }, 20.3);
+    const G = [[0.2, 2.15, [["Kita", 0.2, null], ["ada", 0.4, null], ["dua", 0.78, null], ["warna", 1.1, null]]], [2.2, 4.05, [["Ni", 2.2, null], ["blue,", 2.6, "blue"], ["ni", 3.1, null], ["pink.", 3.5, "pink"]]], [4.1, 6.35, [["Boleh", 4.1, null], ["dah,", 4.4, null], ["sebab", 4.6, null], ["ni", 5.0, null], ["tumbler", 5.2, null], ["baru", 5.6, null]]], [6.4, 7.75, [["Dia", 6.4, null], ["ada", 6.6, null], ["macam", 6.8, null], ["strap", 7.2, null]]], [7.8, 9.85, [["Macam", 7.8, null], ["ni", 8.4, null], ["kita", 8.7, null], ["pakai", 9.2, null]]], [11.15, 13.25, [["Kalau", 11.2, null], ["kita", 11.4, null], ["pergi", 11.7, null], ["ke", 12.0, null], ["mana-mana", 12.1, null]]], [13.3, 14.5, [["Tumbler", 13.3, null], ["jual", 13.9, null], ["ke?", 14.2, null]]], [14.55, 15.25, [["Ha,", 14.55, null], ["jual.", 14.8, null]]], [15.3, 17.25, [["Kita", 15.8, null], ["ada", 16.1, null], ["dua", 16.3, null], ["warna", 16.6, null]]], [17.3, 20.85, [["Satu", 17.4, null], ["blue,", 17.7, "blue"], ["satu", 19.4, null], ["pink.", 19.8, "pink"]]]];
+    G.forEach(([s, e, ws], gi) => {
+      const g = "#cap" + gi;
+      tl.fromTo(g, { opacity: 1 }, { opacity: 1, duration: 0.01 }, s);
+      ws.forEach(([t, at, kw], wi) => {
+        // fade + naik 28px, ease-out (gaya v3)
+        tl.fromTo(`#c${gi}w${wi}`, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, Math.max(s, at - 0.08));
+        if (kw) tl.fromTo(`#c${gi}w${wi} .ul`, { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power3.out" }, Math.max(s, at) + 0.2);
+      });
+      tl.to(g, { opacity: 0, duration: 0.14, ease: "power2.in" }, e - 0.14);
+      tl.set(g, { opacity: 0, visibility: "hidden" }, e);
+    });
+    window.__timelines["captions"] = tl;
+  </script>
+</template>

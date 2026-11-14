@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ms" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      /* Kopi Saigon v4: gaya sinematik premium (lihat CLAUDE.md di akar repo) */
+      @font-face {
+        font-family: "Playfair Display";
+        font-style: italic;
+        font-weight: 400;
+        src: url("assets/fonts/PlayfairDisplay-Italic.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "Inter";
+        font-weight: 300;
+        src: url("assets/fonts/Inter-Light.otf") format("opentype");
+      }
+      :root {
+        --cream: #f4eadb;
+        --blue: #9dc0da;
+        --pink: #ebb8b4;
+        --serif: "Playfair Display", serif;
+        --sans: "Inter", sans-serif;
+        --shadow: 0 2px 18px rgba(20, 12, 6, 0.55), 0 1px 3px rgba(20, 12, 6, 0.6);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0c0907;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 42%;
+      }
+      #footage,
+      #endstill {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      #endstill {
+        z-index: 1;
+        opacity: 0;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="23.6"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="cam">
+        <video
+          id="footage"
+          class="clip"
+          src="assets/tumbler_graded.mp4"
+          data-start="0"
+          data-duration="20.9"
+          data-has-audio="true"
+          data-fade-out="0.4"
+          data-track-index="0"
+          playsinline
+        ></video>
+      </div>
+      <img
+        id="endstill"
+        class="clip"
+        src="assets/end_blur.jpg"
+        data-start="20.3"
+        data-duration="3.3"
+        data-track-index="1"
+        alt=""
+      />
+
+      <div id="leaks" class="scene" style="z-index: 5" data-composition-id="leaks"
+        data-composition-src="compositions/leaks.html" data-start="0" data-duration="23.6"
+        data-width="1080" data-height="1920" data-track-index="2" data-track-kind="graphics"></div>
+
+      <div id="intro" class="scene" style="z-index: 10" data-composition-id="intro"
+        data-composition-src="compositions/intro.html" data-start="0" data-duration="4.6"
+        data-width="1080" data-height="1920" data-track-index="3" data-track-kind="graphics"></div>
+      <div id="strap" class="scene" style="z-index: 10" data-composition-id="strap"
+        data-composition-src="compositions/strap.html" data-start="6.3" data-duration="2.6"
+        data-width="1080" data-height="1920" data-track-index="3" data-track-kind="graphics"></div>
+      <div id="dijual" class="scene" style="z-index: 10" data-composition-id="dijual"
+        data-composition-src="compositions/dijual.html" data-start="13.2" data-duration="2.8"
+        data-width="1080" data-height="1920" data-track-index="4" data-track-kind="graphics"></div>
+      <div id="warna" class="scene" style="z-index: 10" data-composition-id="warna"
+        data-composition-src="compositions/warna.html" data-start="17.2" data-duration="3.2"
+        data-width="1080" data-height="1920" data-track-index="4" data-track-kind="graphics"></div>
+      <div id="outro" class="scene" style="z-index: 12" data-composition-id="outro"
+        data-composition-src="compositions/outro.html" data-start="20.5" data-duration="3.1"
+        data-width="1080" data-height="1920" data-track-index="5" data-track-kind="graphics"></div>
+
+      <div id="captions" class="scene" style="z-index: 11" data-composition-id="captions"
+        data-composition-src="compositions/captions.html" data-start="0" data-duration="20.9"
+        data-width="1080" data-height="1920" data-track-index="6" data-track-kind="captions"></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Kamera: push-in perlahan setiap shot, drift sisi kecil, reset pada setiap potongan asal
+      const shots = [0, 1.5, 4.09, 9.97, 12.82, 16.83, 20.9];
+      for (let i = 0; i < shots.length - 1; i++) {
+        const a = shots[i], b = shots[i + 1];
+        const dir = i % 2 === 0 ? 1 : -1;
+        tl.fromTo(
+          "#cam",
+          { scale: 1.0, x: -6 * dir },
+          { scale: 1.04, x: 6 * dir, duration: b - a, ease: "sine.inOut", immediateRender: false },
+          a,
+        );
+      }
+      // Penutup: imej kabur muncul secara dissolve 0.5s
+      tl.fromTo("#endstill", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1.0, duration: 0.6, ease: "power2.out" }, 20.3);
+      tl.to("#endstill", { scale: 1.03, duration: 2.5, ease: "sine.inOut" }, 20.9);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

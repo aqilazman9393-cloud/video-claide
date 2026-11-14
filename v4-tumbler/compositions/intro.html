@@ -1,0 +1,69 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #intro-wash {
+      position: absolute; left: 0; top: 0; width: 1080px; height: 640px;
+      background: linear-gradient(180deg, rgba(18, 11, 6, 0.42) 0%, rgba(18, 11, 6, 0) 100%);
+    }
+    .intro-block { position: absolute; left: 96px; top: 168px; }
+    .label {
+      font-family: var(--sans); font-weight: 300; font-size: 32px;
+      letter-spacing: 0.32em; text-transform: uppercase; color: var(--cream);
+      text-shadow: var(--shadow);
+    }
+    #intro-rule { width: 120px; height: 2px; background: var(--cream); margin: 22px 0 18px; transform-origin: 0 50%; opacity: 0.85; }
+    #intro-title {
+      font-family: var(--serif); font-style: italic; font-size: 104px; line-height: 1.05;
+      color: var(--cream); text-shadow: var(--shadow);
+    }
+    #intro-swatches { position: absolute; left: 96px; top: 200px; display: flex; gap: 56px; }
+    .sw { display: flex; align-items: center; gap: 22px; }
+    .sw svg { width: 92px; height: 92px; overflow: visible; }
+    .sw .ring { fill: none; stroke: var(--cream); stroke-width: 2; }
+    .sw-name { font-family: var(--serif); font-style: italic; font-size: 64px; color: var(--cream); text-shadow: var(--shadow); }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1080" data-height="1920">
+    <div id="intro-wash" class="clip" data-start="0" data-duration="4.6"></div>
+
+    <div id="intro-head" class="intro-block clip" data-start="0" data-duration="2.5">
+      <div id="intro-label" class="label">Kopi Saigon · Pasir Puteh</div>
+      <div id="intro-rule"></div>
+      <div id="intro-title">Tumbler baru.</div>
+    </div>
+
+    <div id="intro-swatches" class="clip" data-start="2.2" data-duration="2.4">
+      <div class="sw" id="intro-sw1">
+        <svg viewBox="0 0 92 92"><circle class="fill" cx="46" cy="46" r="34" fill="var(--blue)"/><circle class="ring" cx="46" cy="46" r="44"/></svg>
+        <span class="sw-name">Blue</span>
+      </div>
+      <div class="sw" id="intro-sw2">
+        <svg viewBox="0 0 92 92"><circle class="fill" cx="46" cy="46" r="34" fill="var(--pink)"/><circle class="ring" cx="46" cy="46" r="44"/></svg>
+        <span class="sw-name">Pink</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const RING = 2 * Math.PI * 44;
+    tl.fromTo("#intro-wash", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0);
+    tl.to("#intro-wash", { opacity: 0, duration: 0.6, ease: "power2.in" }, 3.9);
+
+    // Tajuk dalam 1 saat pertama: fade + naik 28px, ease-out
+    tl.fromTo("#intro-label", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.15);
+    tl.fromTo("#intro-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.out" }, 0.35);
+    tl.fromTo("#intro-title", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.45);
+    tl.to("#intro-head", { opacity: 0, y: -12, duration: 0.45, ease: "power2.in" }, 2.0);
+    tl.set("#intro-head", { opacity: 0 }, 2.49);
+
+    // Swatch warna: cincin dilukis, bulatan membesar lembut
+    ["#intro-sw1", "#intro-sw2"].forEach((s, i) => {
+      const t = 2.3 + i * 0.25;
+      tl.fromTo(`${s} .ring`, { strokeDasharray: RING, strokeDashoffset: RING }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.out" }, t);
+      tl.fromTo(`${s} .fill`, { scale: 0.4, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.7, ease: "power3.out" }, t + 0.1);
+      tl.fromTo(`${s} .sw-name`, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, t + 0.2);
+    });
+    tl.to("#intro-swatches", { opacity: 0, duration: 0.45, ease: "power2.in" }, 4.1);
+    tl.set("#intro-swatches", { opacity: 0 }, 4.59);
+    window.__timelines["intro"] = tl;
+  </script>
+</template>

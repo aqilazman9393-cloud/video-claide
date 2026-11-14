@@ -1,0 +1,39 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    .leak {
+      position: absolute;
+      width: 1500px;
+      height: 1500px;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      opacity: 0;
+      background: radial-gradient(circle at 50% 50%,
+        rgba(255, 184, 112, 0.85) 0%,
+        rgba(255, 140, 70, 0.45) 30%,
+        rgba(255, 110, 50, 0.12) 55%,
+        rgba(255, 110, 50, 0) 70%);
+    }
+    #leaks-a { left: -700px; top: 80px; }
+    #leaks-b { left: 300px; top: -500px; }
+    #leaks-c { left: -400px; top: 700px; }
+  </style>
+  <div id="root" data-composition-id="leaks" data-width="1080" data-height="1920">
+    <div id="leaks-a" class="leak"></div>
+    <div id="leaks-b" class="leak"></div>
+    <div id="leaks-c" class="leak"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Light leak hangat yang lembut pada 3 detik sahaja (dua potongan + penutup)
+    const leak = (sel, t, peak, dx) => {
+      tl.fromTo(sel, { opacity: 0, x: -dx }, { opacity: peak, x: 0, duration: 0.45, ease: "sine.out" }, t - 0.3);
+      tl.to(sel, { opacity: 0, x: dx, duration: 0.7, ease: "sine.in" }, t + 0.15);
+    };
+    leak("#leaks-a", 4.09, 0.5, 60);
+    leak("#leaks-b", 12.82, 0.45, -50);
+    leak("#leaks-c", 20.6, 0.4, 40);
+    tl.set({}, {}, 23.6);
+    window.__timelines["leaks"] = tl;
+  </script>
+</template>

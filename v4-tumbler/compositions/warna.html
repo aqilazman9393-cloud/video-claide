@@ -1,0 +1,37 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #warna-wash { position: absolute; left: 0; top: 0; width: 1080px; height: 560px;
+      background: linear-gradient(180deg, rgba(18, 11, 6, 0.4) 0%, rgba(18, 11, 6, 0) 100%); }
+    #warna-card { position: absolute; left: 96px; top: 176px; }
+    #warna-label { font-family: var(--sans); font-weight: 300; font-size: 32px; letter-spacing: 0.32em;
+      text-transform: uppercase; color: var(--cream); text-shadow: var(--shadow); }
+    #warna-row { margin-top: 26px; display: flex; align-items: center; gap: 26px; }
+    .wdot { width: 56px; height: 56px; border-radius: 50%; box-shadow: 0 0 0 2px rgba(244,234,219,.9), 0 4px 18px rgba(20,12,6,.4); }
+    #warna-d1 { background: var(--blue); }
+    #warna-d2 { background: var(--pink); margin-left: -12px; }
+    #warna-names { font-family: var(--serif); font-style: italic; font-size: 72px; color: var(--cream); text-shadow: var(--shadow); margin-left: 10px; }
+  </style>
+  <div id="root" data-composition-id="warna" data-width="1080" data-height="1920">
+    <div id="warna-wash" class="clip" data-start="0" data-duration="3.2"></div>
+    <div id="warna-card" class="clip" data-start="0" data-duration="3.2">
+      <div id="warna-label">Dua warna</div>
+      <div id="warna-row">
+        <div class="wdot" id="warna-d1"></div>
+        <div class="wdot" id="warna-d2"></div>
+        <div id="warna-names">Blue &amp; Pink</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#warna-wash", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    tl.fromTo("#warna-label", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+    tl.fromTo("#warna-d1", { scale: 0.3, opacity: 0, x: 30 }, { scale: 1, opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+    tl.fromTo("#warna-d2", { scale: 0.3, opacity: 0, x: -30 }, { scale: 1, opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.42);
+    tl.fromTo("#warna-names", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.5);
+    tl.to(["#warna-card", "#warna-wash"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 2.75);
+    tl.set(["#warna-card", "#warna-wash"], { opacity: 0 }, 3.19);
+    window.__timelines["warna"] = tl;
+  </script>
+</template>

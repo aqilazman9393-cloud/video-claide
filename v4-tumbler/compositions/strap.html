@@ -1,0 +1,29 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #strap-wash { position: absolute; left: 0; top: 0; width: 1080px; height: 560px;
+      background: linear-gradient(180deg, rgba(18, 11, 6, 0.4) 0%, rgba(18, 11, 6, 0) 100%); }
+    #strap-card { position: absolute; left: 96px; top: 176px; }
+    #strap-label { font-family: var(--sans); font-weight: 300; font-size: 32px; letter-spacing: 0.32em;
+      text-transform: uppercase; color: var(--cream); text-shadow: var(--shadow); display: flex; align-items: center; gap: 22px; }
+    #strap-line { display: block; width: 64px; height: 2px; background: var(--cream); transform-origin: 0 50%; }
+    #strap-title { margin-top: 18px; font-family: var(--serif); font-style: italic; font-size: 84px; color: var(--cream); text-shadow: var(--shadow); }
+  </style>
+  <div id="root" data-composition-id="strap" data-width="1080" data-height="1920">
+    <div id="strap-wash" class="clip" data-start="0" data-duration="2.6"></div>
+    <div id="strap-card" class="clip" data-start="0" data-duration="2.6">
+      <div id="strap-label"><span id="strap-line"></span><span id="strap-label-text">Siap dengan strap</span></div>
+      <div id="strap-title">Senang dibawa.</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#strap-wash", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
+    tl.fromTo("#strap-line", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 0.05);
+    tl.fromTo("#strap-label-text", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.15);
+    tl.fromTo("#strap-title", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+    tl.to(["#strap-card", "#strap-wash"], { opacity: 0, duration: 0.4, ease: "power2.in" }, 2.15);
+    tl.set(["#strap-card", "#strap-wash"], { opacity: 0 }, 2.59);
+    window.__timelines["strap"] = tl;
+  </script>
+</template>

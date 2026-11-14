@@ -1,0 +1,23 @@
+{
+  "name": "video-claide",
+  "version": "1.0.0",
+  "description": "Hasil: `output/kopi_saigon_pasir_puteh.mp4`, menegak 1080x1920, 24fps, ~19 saat. Sesuai untuk Reels, TikTok dan Shorts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aqilazman9393-cloud/video-claide.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aqilazman9393-cloud/video-claide/issues"
+  },
+  "homepage": "https://github.com/aqilazman9393-cloud/video-claide#readme",
+  "devDependencies": {
+    "hyperframes": "^0.9.43"
+  }
+}
